@@ -1,0 +1,228 @@
+\documentclass[12pt]{amsart}
+
+%%%%%%%%%This project was adapted from Adam Graham-Squire at High Point University.
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0in}
+
+\usepackage{amsthm, amsmath, amssymb}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+\usepackage{graphicx, multicol}
+\usepackage{marvosym, wasysym}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{siunitx}
+\usepackage{tabularx}
+
+\newcommand{\ds}{\displaystyle}
+\DeclareMathOperator{\sech}{sech}
+
+
+
+\pagestyle{empty}
+\usepackage{cleveref}
+\crefname{hyp}{hypothesis}{hypotheses}
+\Crefname{hyp}{Hypothesis}{Hypotheses}
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape Yijie Wang yw6199} \hfill {\scshape \large HPC} \hfill {HW \#2\scshape }
+ 
+
+\hrule
+\smallskip
+All the experiments was ran on the cims server with the following CPU specifications:
+\begin{verbatim}
+Architecture:          x86-64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                4
+On-line CPU(s) list:   0-3
+Thread(s) per core:    1
+Core(s) per socket:    1
+Socket(s):             4
+NUMA node(s):          1
+Vendor ID:             AuthenticAMD
+CPU family:            23
+Model:                 1
+Model name:            AMD EPYC Processor (with IBPB)
+Stepping:              2
+CPU MHz:               2894.562
+BogoMIPS:              5789.12
+Hypervisor vendor:     KVM
+Virtualization type:   full
+L1d cache:             32K
+L1i cache:             64K
+L2 cache:              512K
+L3 cache:              8192K
+NUMA node0 CPU(s):     0-3
+\end{verbatim}
+\textbf{Question 1} \\
+see code\\
+\break
+\textbf{Question 2} \\
+Without blocking, MMult0 takes 6.305941s\\
+After trying different loop arrangements, I found column-element-row is optimal\\
+With the fixed optimal loop arrangement, $N=2000$, the timing with respect to block size is
+\vskip0.2cm
+\begin{tabular}{|c |c|} 
+ \hline
+ Block size & Timing(in seconds) \\ [0.5ex] 
+ \hline
+ 4 & 3.383040 \\
+ \hline
+ 8 & 3.645088 \\ 
+ \hline
+ 12 & 3.265589 \\
+ \hline
+ 16 & 5.773707 \\
+ \hline
+ 20 & 3.728890 \\
+ \hline
+ 24 & 2.371336 \\
+ \hline
+ 28 & 2.002738 \\
+ \hline
+ 32 & 2.369674 \\
+ \hline
+ 36 & 2.235434\\ [1ex] 
+ \hline
+\end{tabular}
+\\\\
+we can see 28 is the optimal block size
+\\\\
+Blocked version with different matrix sizes using the optimal block size and loop arrangement
+\vskip0.2cm
+\begin{tabular}{|c |c|} 
+ \hline
+ Matrix size & Timing (in seconds) \\ [0.5ex] 
+ \hline
+ 1988 & 2.043998 \\ 
+ \hline
+ 2492 & 4.103675 \\
+ \hline
+ 2996 & 7.031352 \\
+ \hline
+ 3416 & 10.652410 \\[1ex] 
+ \hline
+\end{tabular}
+\break\\
+Note the limit for number of dimensions is around 3416\\
+\\
+OpenMP version with different matrix sizes
+\vskip0.2cm
+\begin{tabular}{|c |c|} 
+ \hline
+ Matrix size & Timing (in seconds) \\ [0.5ex] 
+ \hline
+ 1988 & 0.581286 \\ 
+ \hline
+ 2492 & 1.419819 \\
+ \hline
+ 2996 & 1.925897 \\
+ \hline
+ 3416 & 2.748428 \\ [1ex] 
+ \hline
+\end{tabular}
+\break\\\\
+\textbf{Question 3}\\
+see code\\\\
+\textbf{Question 4}\\
+Fixed number of iterations: 5000\\
+Jacobi (without OpenMP):\vskip0.2cm
+\begin{tabular}{|c |c|} 
+ \hline
+ Matrix size & Timing (in seconds) \\ [0.5ex] 
+ \hline
+ 100 & 0.945364 \\
+ \hline
+ 300 & 6.710750 \\
+ \hline
+ 500 & 10.365271 \\  
+ \hline
+ 700 & 39.587819 \\  
+ \hline
+ 900 & 106.918580 \\ [1ex] 
+ \hline
+ \end{tabular}
+ \\\\
+ Jacobi (with OpenMP):\vskip0.2cm
+\begin{tabular}{|c |c|} 
+ \hline
+ Matrix size & Timing (in seconds) \\ [0.5ex] 
+ \hline
+ 100 & 0.444252 \\
+ \hline
+ 300 & 3.410377 \\
+ \hline
+ 500 & 8.712556 \\  
+ \hline
+ 700 & 22.866418 \\ 
+ \hline
+ 900 & 36.137673 \\ [1ex] 
+ \hline
+\end{tabular}
+\\\\N=300:\vskip0.2cm
+ \begin{tabular}{|c |c|} 
+ \hline
+ number of threads & Timing (in seconds) \\ [0.5ex] 
+ \hline
+ 2 & 4.463627 \\
+ \hline
+ 3 & 3.564265 \\
+ \hline
+ 4 & 3.241725 \\  [1ex] 
+ \hline
+ \end{tabular}\newpage
+ GS (without OpenMP):\vskip0.2cm
+\begin{tabular}{|c |c|} 
+ \hline
+ Matrix size & Timing (in seconds) \\ [0.5ex] 
+ \hline
+ 100 & 0.390130 \\
+ \hline
+ 300 & 3.261011 \\
+ \hline
+ 500 & 8.885142 \\  
+ \hline
+ 700 & 15.122553 \\  
+ \hline
+ 900 & 26.122974 \\ [1ex] 
+ \hline
+ \end{tabular}
+ \\\\
+ GS (with OpenMP):\vskip0.2cm
+\begin{tabular}{|c |c|} 
+ \hline
+ Matrix size & Timing (in seconds) \\ [0.5ex] 
+ \hline
+ 100 & 0.357034 \\
+ \hline
+ 300 & 2.393933 \\
+ \hline
+ 500 & 6.834618 \\  
+ \hline
+ 700 & 13.240459 \\ 
+ \hline
+ 900 &  21.983697\\ [1ex] 
+ \hline
+\end{tabular}
+\\\\N=300:\vskip0.2cm
+ \begin{tabular}{|c |c|} 
+ \hline
+ number of threads & Timing (in seconds) \\ [0.5ex] 
+ \hline
+ 2 & 3.313398 \\
+ \hline
+ 3 & 2.667255 \\
+ \hline
+ 4 &  2.389107\\  [1ex] 
+ \hline
+ \end{tabular}
+ \\\\
+ I found GS runs faster than Jacobi as we don't need to make a copy of u.For both methods, the impact of OpenMP is more obvious as matrix size increases. As we include more threads, it takes less time to run the program.
+\end{document}

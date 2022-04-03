@@ -1,0 +1,58 @@
+\documentclass[12pt]{amsart}
+
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0in}
+
+\usepackage{amsthm, amsmath, amssymb}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+\usepackage{graphicx, multicol}
+\usepackage{marvosym, wasysym}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{siunitx}
+\usepackage{tabularx}
+
+\newcommand{\ds}{\displaystyle}
+\DeclareMathOperator{\sech}{sech}
+
+
+
+\pagestyle{empty}
+\usepackage{cleveref}
+\crefname{hyp}{hypothesis}{hypotheses}
+\Crefname{hyp}{Hypothesis}{Hypotheses}
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape Yijie Wang yw6199} \hfill {\scshape \large HPC} \hfill {HW \#3\scshape }
+ 
+
+\hrule
+\smallskip
+\vskip0.2cm
+
+\textbf{Question 2} \\
+I modified the AVX part of the function $sin4\_intrin()$\\
+Reference time: 17.0343\\ 
+Taylor time:    $2.4567$ \hspace{1cm} Error: $6.928125e-12$\\
+Intrin time:    $0.9997$ \hspace{1cm}     Error: $6.928125e-12$\\
+\break
+\textbf{Question 3} \\
+CPU information: I used cims server, X86\_64 architecture with 4 cores in total (1 core per socket)\\
+Timing using 4 threads (in seconds):\\
+sequential-scan = 1.333969 \\
+parallel-scan   = 0.334893 \\
+error = 0\\
+\break
+Timing using 2 threads (in seconds):\\
+sequential-scan = 1.463595\\
+parallel-scan   = 0.538036\\
+error = 0\\
+\break
+Note: there are only 4 threads available for this CPU\\
+\end{document}

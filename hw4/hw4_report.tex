@@ -1,0 +1,60 @@
+\documentclass[12pt]{amsart}
+
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0in}
+
+\usepackage{amsthm, amsmath, amssymb}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+\usepackage{graphicx, multicol}
+\usepackage{marvosym, wasysym}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{siunitx}
+\usepackage{tabularx}
+
+\newcommand{\ds}{\displaystyle}
+\DeclareMathOperator{\sech}{sech}
+
+
+
+\pagestyle{empty}
+\usepackage{cleveref}
+\crefname{hyp}{hypothesis}{hypotheses}
+\Crefname{hyp}{Hypothesis}{Hypotheses}
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape Yijie Wang yw6199} \hfill {\scshape \large HPC} \hfill {HW \#4\scshape }
+ 
+
+\hrule
+\smallskip
+\vskip0.2cm
+
+\textbf{Question 1} \\
+cuda1\\ 
+CPU bandwidth:    $8.575212$ GB/s \\
+GPU bandwidth:    $16.104378$ GB/s \\
+cuda2\\ 
+CPU bandwidth:    $8.032493$ GB/s \\
+GPU bandwidth:    $19.033879$ GB/s \\
+cuda3\\ 
+CPU bandwidth:    $7.839184$ GB/s \\
+GPU bandwidth:    $11.093030$ GB/s \\
+cuda4\\ 
+CPU bandwidth:    $8.206962$ GB/s \\
+GPU bandwidth:    $12.115818$ GB/s \\
+cuda5\\ 
+CPU bandwidth:    $8.849345$ GB/s \\
+GPU bandwidth:    $7.134371$ GB/s \\
+\break
+
+\textbf{Question 3} \\
+We originally planned to implement SVM, and then parallel the SGD part. However, we saw many people have already paralleled SGD with SVM. So we planned to implement logistic regression, which not many people have tried this before. I finished implementing Logistic Regression in C++, it takes much more time than expected to finish because my teammates and I are not proficient in C++. Next, we need to find a sparse multi-label dataset like RCV1. In addition, we also need to parallel SGD without locking like Hogwild!. 
+
+\end{document}
